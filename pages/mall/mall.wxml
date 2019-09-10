@@ -1,0 +1,30 @@
+
+
+<scroll-view
+  class='nav'
+  scroll-y
+  >
+  <block wx:for="{{goodsNav}}" wx:key="{{item.id}}">
+    <view
+      class='nav-item {{chooseNavId==item.id?"nav-item-choose":""}}' 
+      bindtap='chooseNav' 
+      data-pid="{{item.id}}"
+      
+      >
+      {{item.name}}
+    </view>
+  </block>
+</scroll-view>
+
+
+<block>
+  <scroll-view
+    class='product-list'
+    scroll-y
+  >
+    <good-List
+      goodsList='{{goodsList}}'
+    >
+    </good-List>
+  </scroll-view>
+</block>

@@ -1,0 +1,21 @@
+<view>
+  <block wx:for="{{cart}}" wx:key="{{item.id}}">
+    <view class='car-detail'>
+      <checkbox />
+      <image src='{{item.img}}'></image>
+      <view class='car-right'>
+        <view>{{item.title}}</view>
+        <view class='car-right-bottom'>
+          <button>-</button>
+          <input 
+            type='text'
+            value='{{item.count}}'
+          />
+          <button>+</button>
+          <button>删除</button>
+        </view>
+      </view>
+    </view>
+  </block>
+  
+</view>

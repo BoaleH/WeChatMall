@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "good-List":"/components/goodsList/goodsList"
+  },
+  "navigationBarTitleText": "搜索"
+}

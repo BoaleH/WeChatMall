@@ -1,0 +1,60 @@
+page{
+  width: 100%;
+  overflow: hidden;
+  font-size: 30rpx;
+  height: 100%
+}
+::-webkit-scrollbar{
+
+width: 0;
+
+height: 0;
+
+color: transparent;
+
+}
+.search-bar{
+  width: 100%;
+  height: 60rpx;
+  display: flex;
+  border: 10rpx solid #d60;
+}
+.search-bar input{
+  width: 600rpx;
+  height: 60rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+.search-bar button{
+  flex: 1;
+  height: 60rpx;
+  border: none;
+  font-size: 30rpx;
+  line-height: 60rpx;
+}
+.hot-words{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.hot-words view{
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 10rpx;
+  margin: 15rpx;
+  color: #757575;
+  background-color: #F5F5F5;
+  border-radius:10%; 
+}
+.hot-words .high-light{
+  background-color: #ffcdd2;
+  color: #e53935;
+}
+
+
+.product-list{
+  height: 1130rpx;
+  overflow-x: hidden;
+
+}

@@ -1,0 +1,33 @@
+<view class='header'>
+  <view class='header-left'>
+        <image
+          src="{{positionImg}}"
+          class='position-img'
+        ></image>
+        <view class='position-city'>{{positionCity}}</view>
+  </view>
+  <view class='header-right' catchtap='toSearch'>
+    <view class='search-bar'>
+      <icon type="search" size="20" />
+      <view>搜索</view>
+    </view>
+  </view>
+</view> 
+
+
+<view class='swiper-container'>
+  <view class='swiper-image'>
+    <swiper
+      
+      autoplay="true"
+      interval="5000"
+      duration="1000"
+    >
+      <block wx:for="{{swiperImg}}" wx:key="{{item}}">
+        <swiper-item>
+          <image src='{{item}}' />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>

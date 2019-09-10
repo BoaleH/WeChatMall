@@ -1,0 +1,71 @@
+/* pages/home/home.wxss */
+.header{
+  display: flex;
+  justify-content: space-between;
+  border: 10rpx solid #d60;
+}
+.header-left{
+  width: 200rpx;
+  display: flex;
+  justify-content: space-around;
+  height: 60rpx;
+  background-color: #d60;
+  line-height: 60rpx;
+}
+.position-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 10rpx;
+}
+.position-city{
+  font-size: 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.header-right{
+  width: 550rpx;
+  background-color: #d60;
+  height: 60rpx;
+  flex: 1;
+}
+.header-right .search-bar{
+  width: 550rpx;
+  height: 60rpx;
+  border: none;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  text-align: center;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+.search-bar icon{
+  width: 50rpx;
+  height: 60rpx;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+}
+.search-bar view{
+  width: 500rpx;
+  height: 60rpx;
+}
+
+
+.swiper-container{
+  position: relative;
+  width: 100%;
+  padding-top: 37%;
+}
+
+.swiper-image{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 750rpx;
+}
+
+
+.swiper-container image{
+  width: 750rpx;
+  height: 278rpx;
+}
