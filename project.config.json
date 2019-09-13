@@ -23,7 +23,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
 	"appid": "wx618f03357ecf71b2",
-	"projectname": "wechatStore",
+	"projectname": "WeChatMall",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -48,40 +48,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "search",
-					"pathName": "pages/search/search",
+					"id": 0,
+					"name": "pages/sousuo/sousuo",
+					"pathName": "pages/sousuo/sousuo",
 					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "home",
-					"pathName": "pages/home/home",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "mall",
-					"pathName": "pages/mall/mall",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "car",
-					"pathName": "pages/car/car",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "about",
-					"pathName": "pages/about/about",
 					"scene": null
 				}
 			]

@@ -1,0 +1,41 @@
+<view class="search-bar">
+  <view class="back-button">返回</view>
+  <view class="search-input">
+    <text class="search-icon iconfont icon-sousuo"></text>
+    <input
+      placeholder="搜索商品，发现更多优选"
+      focus
+      bindinput="changeInput"
+    />
+  </view>
+  <view class="search-button" bindtap="toSearchDetail">搜索</view>
+</view>
+<view>
+  <view class="hot-word">
+    <view class="hot-word-title">热门搜索</view>
+    <view class="hot-word-word">
+      <block wx:for="{{hotWords}}" wx:key="{{index}}">
+        <view class="{{item.highlight === true ? 'highlight' : ''}}" bindtap="clickHotWord" data-val="{{item.word}}">{{item.word}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="hot-word">
+    <view class="hot-word-title">历史搜索</view>
+    <view class="hot-word-word">
+      <block wx:for="{{historySearch}}" wx:key="{{index}}">
+        <view bindtap="clickHotWord" data-val="{{item}}">{{item}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="hot-word">
+    <view class="hot-word-title">商品分类</view>
+    <view class="hot-word-word">
+      <block wx:for="{{goodsTypes}}" wx:key="{{index}}">
+        <view class="goods-type">{{item.name}}</view>
+      </block>
+    </view>
+  </view>
+</view>
+<commodity-List 
+  
+/>

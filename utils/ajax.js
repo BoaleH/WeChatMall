@@ -76,7 +76,7 @@ class Ajax{                       //创建一个类，相当于是创建一个�
 const ajax=new Ajax()                   //创建一个Ajax的实例
 
 
-export default new Ajax()               //如果想在page中使用Ajax的实例，则写这一句，new Ajax()返回的是一个Ajax实例，是promise对象
+export default ajax               //如果想在page中使用Ajax的实例，则写这一句，new Ajax()返回的是一个Ajax实例，是promise对象
                                         //这句不写都可以
 
 //获取热搜

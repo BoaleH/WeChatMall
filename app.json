@@ -6,11 +6,13 @@
     "pages/mine/mine",
     "pages/detail/detail",
     "pages/search/search",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/sousuo/sousuo",
+    "pages/searchdetail/searchdetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#d60",
+    "navigationBarBackgroundColor": "#fdde4a",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
