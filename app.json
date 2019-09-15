@@ -8,7 +8,8 @@
     "pages/search/search",
     "pages/about/about",
     "pages/sousuo/sousuo",
-    "pages/searchdetail/searchdetail"
+    "pages/searchdetail/searchdetail",
+    "pages/map/map"
   ],
   "window": {
     "backgroundTextStyle": "light",

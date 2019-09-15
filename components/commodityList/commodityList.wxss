@@ -1,0 +1,18 @@
+.content {
+  width: 750rpx;
+}
+
+.tab {
+  width: 100%;
+  height: 92rpx;
+  display: flex;
+}
+
+.tab view {
+  flex: 1;
+  color: #43240c;
+  font-size: 28rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+}

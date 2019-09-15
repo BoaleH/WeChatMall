@@ -52,8 +52,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/sousuo/sousuo",
-					"pathName": "pages/sousuo/sousuo",
+					"name": "pages/map/map",
+					"pathName": "pages/map/map",
 					"query": "",
 					"scene": null
 				}

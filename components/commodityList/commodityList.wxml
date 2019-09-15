@@ -1,3 +1,15 @@
-<view class="">
-  sda
+<view class="content">
+  <view class="tab">
+    <view class="tab-default">默认</view>
+    <view class="tab-min">价格最低</view>
+    <view clatab-max>销量最高</view>
+  </view>
+  <view class="goods">
+    <image src=""></image>
+    <view class="msg">
+      <view class="msg-title"></view>
+      <view class="msg-keyword"></view>
+      <view class="msg-foot"></view>
+    </view>
+  </view>
 </view>
