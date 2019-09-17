@@ -1,0 +1,74 @@
+@import '/icon/iconfont/iconfont.wxss';
+.search {
+  width: 100%;
+  height: 84rpx;
+  background-color: #fdde4a;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.search-button {
+  width: 640rpx;
+  height: 64rpx;
+  padding: 0 18rpx;
+  background-color: #fff;
+  border: 1rpx solid #fdde4a;
+  border-radius: 25rpx;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  font-size: 30rpx;
+  color: #777;
+  margin-right: 16rpx;
+}
+
+.search-prompt {
+  font-size: 26rpx;
+  font-weight: normal;
+  color: #777;
+}
+
+.home-nav {
+  width: 100%;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 0 40rpx 0 30rpx;
+  background-color: #fdde4a;
+  display: flex;
+}
+
+.nav-today {
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #43240c;
+  font-size: 30rpx;
+}
+
+.nav-line {
+  width: 1px;
+  background-color: #877a73;
+  margin: 26rpx 7rpx 26rpx 18rpx;
+  height: 46rpx;
+  /* box-shadow: 10rpx 10rpx #877a73;  */
+}
+
+scroll-view {
+  width: 462rpx;
+  height: 100rpx;
+}
+
+/* .scroll-content {
+  width: 462rpx;
+  height: 100rpx;
+}
+
+.scroll-item {
+  height: 100rpx;
+  line-height: 100rpx;
+  float: left;
+  margin-right: 30rpx;
+  font-size: 30rpx;
+} */

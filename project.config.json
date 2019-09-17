@@ -48,12 +48,33 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/map/map",
-					"pathName": "pages/map/map",
+					"name": "pages/canvas/canvas",
+					"pathName": "pages/canvas/canvas",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sousuo/sousuo",
+					"pathName": "pages/sousuo/sousuo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/home",
+					"pathName": "pages/home/home",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/shouye/shouye",
+					"pathName": "pages/shouye/shouye",
 					"query": "",
 					"scene": null
 				}

@@ -1,5 +1,10 @@
 import ajax from './ajax.js';
 
+// 获取首页导航类别
+export const getHomeNavType = (data) => {
+  return ajax.get('/api/tabs?sa=')
+}
+
 // 获取热搜
 export const getHotWord = (data) => {
   return ajax.get('/api/search/home');

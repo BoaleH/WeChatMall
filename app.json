@@ -9,10 +9,14 @@
     "pages/about/about",
     "pages/sousuo/sousuo",
     "pages/searchdetail/searchdetail",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/camera/camera",
+    "pages/canvas/canvas",
+    "pages/shouye/shouye"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fdde4a",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"

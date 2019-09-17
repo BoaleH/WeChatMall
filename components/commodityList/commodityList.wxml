@@ -1,15 +1,29 @@
 <view class="content">
-  <view class="tab">
-    <view class="tab-default">默认</view>
-    <view class="tab-min">价格最低</view>
-    <view clatab-max>销量最高</view>
+  <view class="tab" wx:if="{{isSortBarShow}}">
+    <view class="tab-default" bindtap="changeTab" data-tab="{{0}}">默认</view>
+    <view class="tab-min" bindtap="changeTab" data-tab="{{1}}">价格最低</view>
+    <view clatab-max bindtap="changeTab" data-tab="{{2}}">销量最高</view>
   </view>
   <view class="goods">
-    <image src=""></image>
-    <view class="msg">
-      <view class="msg-title"></view>
-      <view class="msg-keyword"></view>
-      <view class="msg-foot"></view>
+    <view class="goods-content" wx:for="{{goodsList}}" wx:key="{{item.id}}">
+      <image src="{{item.image}}"></image>
+      <view class="msg">
+        <view class="msg-title">{{item.title}}</view>
+        <view class="msg-keyword">
+          <view class="keyword tmall">{{item.platform}}</view>
+          <view class="keyword other">大额卷</view>
+          <view class="keyword free-postage" wx:if="{{item.isFreePostage}}">免邮</view>
+        </view>
+        <view class="msg-foot">
+          <view class="price">
+            <view class="price-tag">￥</view>
+            <view class="price-strong">{{item.strongPrice}}</view>
+            <view class="price-digit">.{{item.digitPrice}}</view>
+          </view>
+          <view class="sale-num">{{item.saleNum}}人购买</view>
+          <view class="coupon-value" wx:if="{{item.couponValue}}">{{item.couponValue}}</view>
+        </view>
+      </view>
     </view>
   </view>
 </view>
