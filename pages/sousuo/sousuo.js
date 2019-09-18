@@ -5,6 +5,8 @@ import {
   getSearchGoodsList
 } from './../../utils/server';
 
+import handleGoodsList from './../../utils/handleGoodsList'
+
 Page({
 
   /**
@@ -163,25 +165,7 @@ Page({
       // 停止下拉刷新
       wx.stopPullDownRefresh();
       let goodsList = res.data.data.list;
-      let goodsArr = [];
-      // goodsArr.concat(this.data.goodsList);
-      goodsList.length > 0 && goodsList.forEach((ele) => {
-        // 处理商品价格的格式
-        let price = ele.price + '';
-        let arr = price.split('.')
-        console.log(typeof price)
-        ele.strongPrice = arr[0]
-        ele.digitPrice = arr[1]
-        if (ele.platform == 1) {
-          ele.platform = '淘宝';
-        } else {
-          ele.platform = '天猫';
-        }
-        // 筛选非商品
-        if (ele.price) {
-          goodsArr.push(ele);
-        }
-      })
+      let goodsArr = handleGoodsList(goodsList);
       console.log(res.data.data.list)
       this.setData({
         goodsList: isScrollUpdate ? goodsArr.concat(this.data.goodsList) : goodsArr,

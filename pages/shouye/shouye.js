@@ -1,5 +1,9 @@
 // pages/shouye/shouye.js
-import { getHomeNavType } from './../../utils/server';
+import { 
+  getHomeNavType,
+  getGoodsListByNav
+} from './../../utils/server';
+import handleGoodsList from './../../utils/handleGoodsList'
 
 Page({
 
@@ -8,7 +12,11 @@ Page({
    */
   data: {
     navList: [],
-    noTodayNavList: []
+    noTodayNavList: [],
+    isNavImgShow: false,
+    isTypeNavShow: false,
+    typeNavList: [],
+    goodsList: []
   },
 
   /**
@@ -68,7 +76,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log('sdadd')
   },
 
   /**
@@ -86,5 +94,42 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
+
+  // 点击导航
+  clickNav(e) {
+    let id;
+    if (e.target.dataset.pid) {
+      id = e.target.dataset.pid
+    } else {
+      id = e.currentTarget.dataset.pid
+    }
+    console.log(id)
+    getGoodsListByNav(id)
+    .then((res) => {
+      console.log(res.data.data.items.list)
+      console.log(res.data.data.categories)
+      this.setData({
+        goodsList: handleGoodsList(res.data.data.items.list),
+        typeNavList: res.data.data.categories,
+        isTypeNavShow: true,
+        isNavImgShow: false
+      })
+    })
+  },
+
+  // 展示图片导航
+  showNavImg() {
+    this.setData({
+      isNavImgShow: true
+    })
+  },
+
+  // 隐藏图片导航
+  hideNavImg() {
+    this.setData({
+      isNavImgShow: false
+    })
   }
+
 })

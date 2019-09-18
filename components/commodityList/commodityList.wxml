@@ -5,7 +5,7 @@
     <view clatab-max bindtap="changeTab" data-tab="{{2}}">销量最高</view>
   </view>
   <view class="goods">
-    <view class="goods-content" wx:for="{{goodsList}}" wx:key="{{item.id}}">
+    <view class="goods-content" wx:for="{{goodsList}}" wx:key="{{item.id}}" bindtap="toDetail" data-pid="{{item.id}}">
       <image src="{{item.image}}"></image>
       <view class="msg">
         <view class="msg-title">{{item.title}}</view>

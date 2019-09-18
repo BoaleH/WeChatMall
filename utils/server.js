@@ -19,3 +19,13 @@ export const getGoodsType = (data) => {
 export const getSearchGoodsList = (data) => {
   return ajax.get('/api/search', data)
 }
+
+// 点击导航请求商品列表
+export const getGoodsListByNav = (id) => {
+  return ajax.get(`/api/tab/${id}?start=0`)
+}
+
+// 获取商品详情
+export const getGoodDetail = (id) => {
+  return ajax.get(`/api/detail?id=${id}&normal=1&sa=`)
+}
