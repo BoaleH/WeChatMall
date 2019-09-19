@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "commodity-List": "./../../components/commodityList/commodityList"
-  },
-  "navigationBarTitleText": "搜索",
-  "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
-}

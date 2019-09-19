@@ -1,5 +1,5 @@
 // pages/car/car.js
-const app=getApp()
+const app=getApp();
 
 
 Page({
@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cart: app.cart
+    cart: []
   },
 
   /**
@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      cart: app.cart
+      cart: app.state.shoppingCart
     })
   },
 
@@ -32,7 +32,7 @@ Page({
    */
   onShow: function () {
     this.setData({
-      cart: app.cart
+      cart: app.state.shoppingCart
     })
     app.setBadge()
   },
@@ -70,5 +70,40 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 增加商品数量
+  addGoodsNum() {
+
+  },
+
+  // 减少商品数量
+  lessGoodsNum() {
+
+  },
+
+  // 输入商品数量
+  inputGoodsNum() {
+
+  },
+
+  // 选中一个商品项
+  checkGoodsOnce() {
+
+  },
+
+  // 选中一类商品项
+  checkGoodsType() {
+
+  },
+
+  // 选中所有商品项
+  checkGoodsAll() {
+
+  },
+
+  // 结算
+  checkoutGoods() {
+    
   }
 })

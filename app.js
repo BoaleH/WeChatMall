@@ -37,9 +37,75 @@ App({
   globalData: {
     userInfo: null
   },
-  //购物车
+
+  // 自定义的状态，用于存放数据
+  state: {
+    //购物车
+    shoppingCart: wx.getStorageSync('shoppingCar') || [], // 购物车的逻辑是：应该先从本地取数据，本地没数据再请求网络，网络没数据再重新存
+  },
+  
   cart:wx.getStorageSync('car')||[],
   //加入购物车
+  addShoppingCar(id, title, price, img, count, whichType) {
+    // 如果没有购物车数据
+    if (this.state.shoppingCart.find((ele) => {
+      return ele.id === id;
+    })) {
+      console.log('有该商品')
+      // 如果购物车有该商品的数据
+      this.state.shoppingCart.forEach((ele) => {
+        if (ele.id === id) {
+          // 判断有无这个商品类型
+          let hasType = false;
+          ele.list.forEach((item) => {
+            if (item.whichType === whichType) {
+              item.count += count;
+              hasType = true;
+            }
+          })
+          // 如果没有这个商品类型的数据
+          if (hasType === false) {
+            ele.list.push({
+              whichType,
+              price,
+              count
+            })
+          }
+        } 
+      })
+
+      // 存储购物车数据到本地
+      wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+      console.log('加入购物车成功', this.state.shoppingCart)
+      wx.showToast({
+        title: '加入购物车成功',
+        icon: ''
+      })
+    } else {
+      console.log('没有该商品')
+      // 如果购物车没有该商品的数据
+      this.state.shoppingCart.push({
+        id,
+        img,
+        title,
+        list: [
+          {
+            whichType,
+            price,
+            count
+          }
+        ]
+      })
+      // 存储购物车数据到本地
+      wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+      console.log('加入购物车成功', this.state.shoppingCart)
+      wx.showToast({
+        title: '加入购物车成功',
+        icon: ''
+      })
+    }
+  },
+
   addCart(id,title,price,img){
     if(this.cart.length===0){
       this.cart.push({

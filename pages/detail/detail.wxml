@@ -36,7 +36,7 @@
   <view class="num-num">
     <view class="num-left">购买数量</view>
     <view class="num-right">
-      <view bindtap="subtractCount">-</view>
+      <view bindtap="subtractCount" class="{{count > 1 ? '' : 'no-click'}}">-</view>
       <input 
         value="{{count}}"
         bindinput="inputCount"
@@ -54,4 +54,8 @@
   <block wx:for="{{descContentList}}" wx:key="{{item.image.url}}">
     <image src="{{item.photo.url}}"></image>
   </block>
+</view>
+<view class="foot-btn">
+  <view class="add-btn" bindtap="addCart">加入购物车</view>
+  <view class="buy-btn">立即购买</view>
 </view>

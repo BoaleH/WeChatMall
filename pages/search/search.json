@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-    "good-List":"/components/goodsList/goodsList"
+    "commodity-List": "./../../components/commodityList/commodityList"
   },
-  "navigationBarTitleText": "搜索"
+  "navigationBarTitleText": "搜索",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
 }

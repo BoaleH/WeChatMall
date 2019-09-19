@@ -48,19 +48,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
 					"name": "pages/canvas/canvas",
 					"pathName": "pages/canvas/canvas",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/sousuo/sousuo",
-					"pathName": "pages/sousuo/sousuo",
 					"query": "",
 					"scene": null
 				},
@@ -73,15 +66,16 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/shouye/shouye",
-					"pathName": "pages/shouye/shouye",
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/detail/detail",
-					"pathName": "pages/detail/detail",
+					"name": "pages/cart/cart",
+					"pathName": "pages/cart/cart",
+					"query": "",
 					"scene": null
 				}
 			]

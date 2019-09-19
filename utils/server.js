@@ -1,5 +1,11 @@
 import ajax from './ajax.js';
 
+// 获取定位城市
+export const getAddressCity = (latitude, longitude) => {
+  let key = 'PF5BZ-RCZ6X-HQX4P-ZIZBG-UWGKQ-CYFF5' // 腾讯地图的应用使用码
+  return ajax.get(`https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${key}&get_poi=1`, {}, true)
+} 
+
 // 获取首页导航类别
 export const getHomeNavType = (data) => {
   return ajax.get('/api/tabs?sa=')

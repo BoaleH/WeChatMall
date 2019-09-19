@@ -1,0 +1,35 @@
+<view class="cart">
+  <block wx:for="{{cart}}" wx:key="{{item.id}}">
+    <view class="content">
+      <view class="header">
+        <checkbox />        
+        <image src="{{item.img}}"/>
+        <view class="title">{{item.title}}</view>
+      </view>
+      <block wx:for="{{item.list}}" wx:key="{{item.whichType}}" wx:for-item="ele">
+        <view class="type">
+          <view class="check-box">
+            <checkbox />
+          </view>
+          <view class="type-right">
+            <view class="type-title">{{ele.whichType}}</view>
+            <view class="type-price">￥{{ele.price}}</view>
+            <view class="num">
+              <view class="num-less">-</view>
+              <input
+                value="{{ele.count}}"
+              />
+              <view class="num-add">+</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>
+<view class="checkout">
+  <checkbox />
+  <view class="checkout-del">删除</view>
+  <view class="checkout-clear">清空</view>
+  <view class="checkout-checkout">结算(数量: 0, 总价: ￥0)</view>
+</view>

@@ -2,17 +2,14 @@
   "pages": [
     "pages/home/home",
     "pages/mall/mall",
-    "pages/car/car",
+    "pages/cart/cart",
     "pages/mine/mine",
     "pages/detail/detail",
     "pages/search/search",
     "pages/about/about",
-    "pages/sousuo/sousuo",
-    "pages/searchdetail/searchdetail",
     "pages/map/map",
     "pages/camera/camera",
-    "pages/canvas/canvas",
-    "pages/shouye/shouye"
+    "pages/canvas/canvas"
   ],
   "window": {
     "backgroundColor": "#fff",
@@ -22,30 +19,32 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "selectedColor": "#ef3e27",
+    "color": "#8a8a8a",
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页",
-        "iconPath": "icon/homeBefore.png",
-        "selectedIconPath": "icon/homeAfter.png"
+        "text": "商城",
+        "iconPath": "icon/home1.png",
+        "selectedIconPath": "icon/home2.png"
       },
       {
         "pagePath": "pages/mall/mall",
         "text": "商城",
-        "iconPath": "icon/mallBefore.png",
-        "selectedIconPath": "icon/mallAfter.png"
+        "iconPath": "icon/shop1.png",
+        "selectedIconPath": "icon/shop2.png"
       },
       {
-        "pagePath": "pages/car/car",
+        "pagePath": "pages/cart/cart",
         "text": "购物车",
-        "iconPath": "icon/carBefore.png",
-        "selectedIconPath": "icon/carAfter.png"
+        "iconPath": "icon/cart1.png",
+        "selectedIconPath": "icon/cart2.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "icon/mineBefore.png",
-        "selectedIconPath": "icon/mineAfter.png"
+        "iconPath": "icon/user1.png",
+        "selectedIconPath": "icon/user2.png"
       }
     ]
   },
