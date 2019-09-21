@@ -9,7 +9,8 @@
     "pages/about/about",
     "pages/map/map",
     "pages/camera/camera",
-    "pages/canvas/canvas"
+    "pages/canvas/canvas",
+    "pages/te/te"
   ],
   "window": {
     "backgroundColor": "#fff",

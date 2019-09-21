@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cart: []
+    cart: [],
+    shoppingCartAllChecked: false
   },
 
   /**
@@ -16,7 +17,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      cart: app.state.shoppingCart
+      cart: getApp().state.shoppingCart,
+      shoppingCartAllChecked: getApp().state.shoppingCartAllChecked
     })
   },
 
@@ -31,10 +33,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 初始化让所有商品全不选
+    app.clearAllChecked()
     this.setData({
-      cart: app.state.shoppingCart
+      cart: app.state.shoppingCart,
+      shoppingCartAllChecked: getApp().state.shoppingCartAllChecked
     })
-    app.setBadge()
+    // app.setBadge()
   },
 
   /**
@@ -87,23 +92,37 @@ Page({
 
   },
 
-  // 选中一个商品项
-  checkGoodsOnce() {
-
+  // 删除选中商品
+  delCheckedGoods() {
+    app.delGoodsCheckedOrTypeChecke()
+    this.updateData()
   },
 
-  // 选中一类商品项
-  checkGoodsType() {
-
-  },
-
-  // 选中所有商品项
-  checkGoodsAll() {
-
+  // 清空购物车所有商品
+  clearAllGoods() {
+    app.clearAllGoods()
+    this.updateData()
   },
 
   // 结算
   checkoutGoods() {
     
+  },
+
+  // 每做一次修改app.js数据的操作就要手动更新setData，因为页面和组件不会自动跟随app.js的数据变化而变化
+  updateData(e) {
+    e && console.log(e.detail) // e.detail可以获取子组件想要传给父组件的值
+    this.setData({
+      cart: app.state.shoppingCart,
+      shoppingCartAllChecked: getApp().state.shoppingCartAllChecked
+    })
+  },
+
+  // 获取自定义子组件，用于测试父组件调用子组件的方法
+  getMyCheck() {
+    // 获取子组件实例
+    this.myCheck = this.selectComponent("#myCheck")
+    // 调用子组件的函数
+    this.myCheck.showLog()
   }
 })

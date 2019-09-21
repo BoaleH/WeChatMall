@@ -35,15 +35,80 @@ App({
     // this.initCar()
   },
   globalData: {
-    userInfo: null
+    openid: '',
+    userInfo: null,
+    _showPictureDetail: false,
+    _pictureTime: '',
+    _pictureAddress: '',
+    //改变量用户存放全局变量修改过程中的值传递, 传递对象
+    data: {}
   },
 
   // 自定义的状态，用于存放数据
   state: {
     //购物车
     shoppingCart: wx.getStorageSync('shoppingCar') || [], // 购物车的逻辑是：应该先从本地取数据，本地没数据再请求网络，网络没数据再重新存
+    shoppingCartAllChecked: false,
+    te: 3,
+    oo: 999
+  },
+
+  // 监听购物车数据变化，因为pages和component虽然可以获取到app.js的数据，但是无法动态根据app.js的变化自动更新页面的数据渲染
+  // watch(){
+  //   let obj = this.state
+  //   Object.defineProperty(obj, 'shoppingCart', {  // 第一个参数是对象，第二个参数是参数对象的自定义属性，第三个参数是属性描述符（也是一个对象）
+  //     // value: this.state.shoppingCart // 相当于get的return this.state.shoppingCart,即把his.state.shoppingCart赋值给obj.shoppingCart
+  //     writable: true, // 表示shoppingCart可以改变
+  //     configrable: true, // 描述属性是否配置，以及可否删除
+  //     enumerable: true, // 描述属性是否会出现在for in 或者 Object.keys()的遍历中
+  //     get: function() { // 返回一个值，作为shoppingCart的属性值
+  //       console.log('取值')
+  //       return this.state.shoppingCart
+  //     },
+  //     set: function() { // 只要shoppingCart的属性值（即get return出去的数据）发生改变们就会执行里面的代码
+
+  //     }
+  //   })
+  // },
+
+  watch(method) {
+    var obj = this.globalData;
+    Object.defineProperty(obj, "data", {  //这里的 data 对应 上面 globalData 中的 data
+      configurable: true,
+      enumerable: true,
+      set: function (value) {  //动态赋值，传递对象，为 globalData 中对应变量赋值
+        console.log(value, 223, this)
+        this._showPictureDetail = value.showPictureDetail;
+        this._pictureTime = value.pictureTime;
+        this._pictureAddress = value.pictureAddress;
+        method(value);
+      },
+      get: function () {  //获取全局变量值，直接返回全部
+        return this.globalData;
+      }
+    })
   },
   
+  watch2(method, val) {
+    var obj = this.state; // 创建一个对象，或者说是添加一个监听对象, 其作为Object.defineProperty的第一个参数，这个obj可以在函数外部设置，
+                          // 由于指针的关系，因此这个obj就是this.state 
+    console.log('进入watch2')
+    Object.defineProperty(obj, "te", {  // te是obj的一个自定义属性，之后的get和set都与obj（即this.state的te）属性变化有关
+      configurable: true,
+      enumerable: true,
+      get() { // 获取（或者说是使用this.state.te）时触发
+        console.log('这是获得的this', this)
+        return val  // 返回值是获取te的值，相当于实际把this.state.te赋值为7
+        // 必须要有返回值，否则在使用this.state.te的时候，打印的是undefine
+      },
+      set(newValue) { // 设置this.state.te的时候触发，参数newValue就是新设置的this.state.te值
+        console.log('这是新设立的te', newValue)
+        console.log('这是最新的this', this)
+      }
+      
+    })
+  },
+
   cart:wx.getStorageSync('car')||[],
   //加入购物车
   addShoppingCar(id, title, price, img, count, whichType) {
@@ -68,7 +133,8 @@ App({
             ele.list.push({
               whichType,
               price,
-              count
+              count,
+              typeChecked: false
             })
           }
         } 
@@ -88,11 +154,13 @@ App({
         id,
         img,
         title,
+        goodsChecked: false,
         list: [
           {
             whichType,
             price,
-            count
+            count,
+            typeChecked: false
           }
         ]
       })
@@ -104,6 +172,128 @@ App({
         icon: ''
       })
     }
+  },
+
+  // shoppingCart所有的goodsChecked和typeChecked都不选（用于重新进入cart页的初始化）
+  clearAllChecked() {
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
+      ele.goodsChecked = false;
+      ele.list.length > 0 && ele.list.forEach((item) => {
+        item.typeChecked = false
+      })
+    })
+    this.state.shoppingCartAllChecked = false
+  },
+
+  // shoppingCart全选
+  allChecked() {
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
+      ele.goodsChecked = true;
+      ele.list.length > 0 && ele.list.forEach((item) => {
+        item.typeChecked = true
+      })
+    })
+    this.state.shoppingCartAllChecked = true
+  },
+
+  // 点击购物车全选按钮
+  hindleClickAllChecked() {
+    if (this.state.shoppingCartAllChecked) {
+      this.state.shoppingCartAllChecked = false
+      this.clearAllChecked();
+    } else {
+      this.state.shoppingCartAllChecked = true
+      this.allChecked();
+    }
+  },
+
+  // 勾选shoppingCart某一项的goodsChecked
+  clickGoodsChecked(id) {
+    let num = this.state.shoppingCart.length;
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
+      if (id == ele.id) {
+        if (ele.goodsChecked) {
+          num -= 1;
+          this.state.shoppingCartAllChecked = false;
+          ele.goodsChecked = false
+          ele.list.length > 0 && ele.list.forEach((item) => {
+            item.typeChecked = false
+          })
+        } else {
+          ele.goodsChecked = true
+          ele.list.length > 0 && ele.list.forEach((item) => {
+            item.typeChecked = true
+          })
+        }
+        wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+        console.log(this.state.shoppingCart)
+      } else {
+        if (!ele.goodsChecked) {
+          num -= 1;
+        }
+      }
+    })
+    if (num == this.state.shoppingCart.length) {
+      this.state.shoppingCartAllChecked = true;
+    }
+  },
+
+  // 勾选shoppingCart某一项的typeChecke
+  clickTypeChecked(id, whichType) {
+    let allGoodsCheck = this.state.shoppingCart.length; // 定义一个变量用于统计shoppingCart有多少个goodsChecked为true
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
+      if (id == ele.id) { 
+        let num = ele.list.length; // 定义一个变量用于统计list有多少个checked是为true
+        ele.list.length > 0 && ele.list.forEach((item) => {
+          if (item.whichType === whichType) {
+            if (item.typeChecked) {
+              item.typeChecked = false;
+              ele.goodsChecked =false;
+              this.state.shoppingCartAllChecked = false
+              num -= 1;
+              allGoodsCheck -= 1;
+            } else {
+              item.typeChecked = true;
+            }
+          }
+          if (!item.typeChecked) {
+            num--;
+          }
+        })
+        if (num == ele.list.length) { // 如果list全部选中，则勾选goodsChecked
+          ele.goodsChecked = true;
+        }
+        wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+      } else {
+        if (ele.goodsChecked == false) {
+          allGoodsCheck -= 1;
+        }
+      }
+    })
+    if (allGoodsCheck == this.state.shoppingCart.length) {
+      this.state.shoppingCartAllChecked = true
+    }
+  },
+
+  // 结算(或删除)，即删除checked的goodsChecked和typeChecke
+  delGoodsCheckedOrTypeChecke() {
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele, index) => {
+      if (ele.goodsChecked) {
+        this.state.shoppingCart.splice(index, 1)
+      } else {
+        ele.list.length > 0 && ele.forEach((item, index2) => {
+          if (item.typeChecked) {
+            item.splice(index2, 1)
+          }
+        })
+      }
+    })
+  },
+
+  // 清空所有购物车
+  clearAllGoods() {
+    this.state.shoppingCart = [];
+    this.shoppingCartAllChecked = false;
   },
 
   addCart(id,title,price,img){
@@ -160,7 +350,10 @@ App({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
+
+  addTe() {
+    this.state.te ++
+    console.log(this.state.te, '增加')
   }
-
-
 })

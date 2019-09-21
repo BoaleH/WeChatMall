@@ -2,14 +2,14 @@
   <block wx:for="{{cart}}" wx:key="{{item.id}}">
     <view class="content">
       <view class="header">
-        <checkbox />        
+        <view class="cb-box"><cb-box ischecked="{{item.goodsChecked}}" pid="{{item.id}}" btntype="goodsChecked" bind:updateCart="updateData"/></view>
         <image src="{{item.img}}"/>
         <view class="title">{{item.title}}</view>
       </view>
       <block wx:for="{{item.list}}" wx:key="{{item.whichType}}" wx:for-item="ele">
         <view class="type">
           <view class="check-box">
-            <checkbox />
+            <view class="cb-box"><cb-box ischecked="{{ele.typeChecked}}" pid="{{item.id}}" whichtype="{{ele.whichType}}" btntype="typeChecked" bind:updateCart="updateData"/></view>
           </view>
           <view class="type-right">
             <view class="type-title">{{ele.whichType}}</view>
@@ -28,8 +28,8 @@
   </block>
 </view>
 <view class="checkout">
-  <checkbox />
-  <view class="checkout-del">删除</view>
+  <view class="cb-box" bindtap="getMyCheck"><cb-box ischecked="{{shoppingCartAllChecked}}" btntype="allchecked" bind:updateCart="updateData" id="myCheck"/></view>
+  <view class="checkout-del" bindtap="delCheckedGoods">删除</view>
   <view class="checkout-clear">清空</view>
   <view class="checkout-checkout">结算(数量: 0, 总价: ￥0)</view>
 </view>

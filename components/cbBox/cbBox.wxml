@@ -1,0 +1,3 @@
+<view bindtap="hindleClick" class="outer-ring">
+  <view class="{{ ischecked ? 'inner-ring' : 'not-checked' }}"></view>
+</view>

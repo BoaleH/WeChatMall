@@ -1,0 +1,3 @@
+<!--pages/te/te.wxml-->
+<text>{{te}}</text>
+<view bindtap="addte"></view>
