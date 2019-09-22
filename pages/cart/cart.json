@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "cb-box": "/components/cbBox/cbBox"
+  },
+  "navigationBarTitleText": "购物车"
+}

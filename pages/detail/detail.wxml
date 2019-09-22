@@ -1,0 +1,61 @@
+<swiper 
+  indicator-dots="{{true}}"
+  autoplay="{{true}}" 
+  interval="{{3000}}" 
+  duration="{{500}}"
+>
+  <block wx:for="{{photo}}" wx:key="{{item.url}}">
+    <swiper-item>
+      <image src="{{item.url}}"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="cmd-info">
+  <view class="title">
+    <text class="tao">淘</text>
+    <text class="postage">包邮</text>
+    {{title}}
+  </view>
+  <view class="price-row">
+    <view class="coupon">用券后</view>
+    <view class="price-icon">￥</view>
+    <view class="price-strong">{{priceStrong}}</view>
+    <view class="price-little">{{priceLittle}}</view>
+  </view>
+  <view class="price-info">
+    <view class="price-left">原价<text class="del">{{originPrice}}</text></view>
+    <view class="price-right">月销量: {{saleNum}}</view>
+  </view>
+</view>
+<view class="type-num">
+  <view class="type-type">
+    <block wx:for="{{typeArr}}" wx:key="{{item.title}}">
+      <view class="{{item.highLight ? 'type-highLight' : ''}}" bindtap="clickType" data-index="{{index}}">{{item.title}}</view>
+    </block>
+  </view>
+  <view class="num-num">
+    <view class="num-left">购买数量</view>
+    <view class="num-right">
+      <view bindtap="subtractCount" class="{{count > 1 ? '' : 'no-click'}}">-</view>
+      <input 
+        value="{{count}}"
+        bindinput="inputCount"
+      />
+      <view bindtap="addCount">+</view>
+    </view>
+  </view>
+</view>
+<view class="tb-border">
+  <text class="line"></text>
+  <text class="title">淘宝图文详情</text>
+  <text class="line"></text>
+</view>
+<view class="detail-img">
+  <block wx:for="{{descContentList}}" wx:key="{{item.image.url}}">
+    <image src="{{item.photo.url}}"></image>
+  </block>
+</view>
+<view class="foot-btn">
+  <view class="add-btn" bindtap="addCart">加入购物车</view>
+  <view class="buy-btn">立即购买</view>
+</view>

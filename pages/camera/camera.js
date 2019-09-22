@@ -1,23 +1,32 @@
-// pages/car/car.js
-const app=getApp()
-
-
+// pages/camera/camera.js
 Page({
 
+  takePhoto() {
+    const ctx = wx.createCameraContext()
+    ctx.takePhoto({
+      quality: 'high',
+      success: (res) => {
+        this.setData({
+          src: res.tempImagePath
+        })
+      }
+    })
+  },
+  error(e) {
+    console.log(e.detail)
+  },
   /**
    * 页面的初始数据
    */
   data: {
-    cart: app.cart
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      cart: app.cart
-    })
+
   },
 
   /**
@@ -31,10 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      cart: app.cart
-    })
-    app.setBadge()
+
   },
 
   /**

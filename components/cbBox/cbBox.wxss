@@ -1,0 +1,26 @@
+.outer-ring {
+  width: 40rpx !important;
+  height: 40rpx !important;
+  line-height: 40rpx;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.inner-ring {
+  width: 23rpx !important;
+  height: 23rpx !important;
+  background-color: #00cccc;
+  border-radius: 50%; 
+}
+
+.not-checked {
+  background-color: #fff;
+  width: 23rpx;
+  height: 23rpx;
+  border-radius: 50%; 
+}

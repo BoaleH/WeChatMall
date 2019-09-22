@@ -2,8 +2,7 @@ const baseURL='http://www.xiongmaoyouxuan.com'          //创建基本的baseURL
 
 class Ajax{                       //创建一个类，相当于是创建一个构造函数
 
-  get(url,data){                  //get方法
-
+  get(url,data, notNeedBaseURL){                  //get方法
     wx.showLoading({              //loading状态，让页面在请求数据的时候显示loading状态
       title: '加载中',
       mask: true,
@@ -16,7 +15,7 @@ class Ajax{                       //创建一个类，相当于是创建一个�
     return new Promise((resolve,reject)=>{      //返回一个Promise对象
 
       wx.request({                    //配合微信的wx.request方法
-        url: baseURL+url,
+        url: notNeedBaseURL ? url : baseURL+url,  // 如果没传notNeedBaseURL，默认拼接baseURL
         data: data || {},             //如果没有传data，默认为一个空对象
         method: 'GET',
         dataType: 'json',
@@ -49,7 +48,7 @@ class Ajax{                       //创建一个类，相当于是创建一个�
     return new Promise((resolve, reject) => {   //返回一个Promise对象
 
       wx.request({                              //配合微信的wx.request方法
-        url: baseURL + url,
+        url:  notNeedBaseURL ? url : baseURL+url,   // 如果没传notNeedBaseURL，默认拼接baseURL
         data: data || {},                        //如果没有传data，默认为一个空对象
         method: 'POST',
         dataType: 'json',

@@ -1,81 +1,45 @@
-
-
-
-
-
-
-
-
-
-<view class='search-bar'>
-  <input 
-    type='text'
-    confirm-type='search'
-    focus='true'
-    value='{{inputValue}}'
-    bindinput='inp'
-  />
-<button catchtap='toSearchList'>搜索</button>
-</view>
-
-
-
-<block wx:if='{{isHotSearchShow}}'>
-  <view class='hot-search-and-recent-search'>
-
-    <view class='hot-search'>
-      <view>热门搜索</view>
-      <view class='hot-words'>
-        <block
-          wx:for="{{hotWords}}"
-          wx:key="{{item.word}}"
-        >
-          <view 
-            class="{{item.highlight?'high-light':''}}"
-            catchtap='clickHotWord'
-            data-hotWord='{{item.word}}'
-            >
-            {{item.word}}
-          </view>
-        </block>
-      </view>
-    </view>
-
-
-    <view class='hot-search'>
-      <view>最近搜索</view>
-      <view class='hot-words'>
-        <block
-          wx:for="{{recentSearch}}"
-          wx:key="{{item}}"
-        >
-          <view 
-            class="{{item.highlight?'high-light':''}}"
-            catchtap='clickHotWord'
-            data-hotWord='{{item}}'
-            >
-            {{item}}
-          </view>
-        </block>
-      </view>
-    </view>
-
+<view class="search-bar">
+  <view class="back-button" bindtap="backButton">返回</view>
+  <view class="search-input">
+    <text class="search-icon iconfont icon-sousuo"></text>
+    <input
+      placeholder="搜索商品，发现更多优选"
+      focus
+      bindinput="changeInput"
+      value="{{whichInput}}"
+    />
   </view>
-</block>
-
-
-<block wx:else>
-  <scroll-view
-    class='product-list'
-    scroll-y
-  >
-    <good-List
-      searchWord='{{inputValue}}'
-      perpage='{{perpage}}'
-      nextIndex='{{nextIndex}}'
-      isEnd='{{isEnd}}'
-      goodsList='{{goodsList}}'
-    >
-    </good-List>
-  </scroll-view>
-</block>
+  <view class="search-button" bindtap="getSearchGoodsList" data-whichsearch="{{whichInput}}">搜索</view>
+</view>
+<view wx:if="{{!isGoodListShow}}">
+  <view class="hot-word">
+    <view class="hot-word-title">热门搜索</view>
+    <view class="hot-word-word">
+      <block wx:for="{{hotWords}}" wx:key="{{index}}">
+        <view class="{{item.highlight === true ? 'highlight' : ''}}" bindtap="getSearchGoodsList" data-whichsearch="{{item.word}}">{{item.word}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="hot-word">
+    <view class="hot-word-title">历史搜索</view>
+    <view class="hot-word-word">
+      <block wx:for="{{historySearch}}" wx:key="{{index}}">
+        <view bindtap="getSearchGoodsList" data-whichsearch="{{item}}">{{item}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="hot-word">
+    <view class="hot-word-title">商品分类</view>
+    <view class="hot-word-word">
+      <block wx:for="{{goodsTypes}}" wx:key="{{index}}">
+        <view class="goods-type">{{item.name}}</view>
+      </block>
+    </view>
+  </view>
+</view>
+<commodity-List
+  wx:if="{{isGoodListShow}}"
+  goodsList="{{goodsList}}"
+  isSortBarShow="{{true}}"
+  bind:changeSort="changeTab"
+/>

@@ -1,0 +1,38 @@
+<view class="cart">
+  <block wx:for="{{cart}}" wx:key="{{item.id}}">
+    <view class="content">
+      <view class="header">
+        <view class="cb-box"><cb-box ischecked="{{item.goodsChecked}}" pid="{{item.id}}" btntype="goodsChecked" bind:updateCart="updateData"/></view>
+        <image src="{{item.img}}"/>
+        <view class="title">{{item.title}}</view>
+      </view>
+      <block wx:for="{{item.list}}" wx:key="{{item.whichType}}" wx:for-item="ele">
+        <view class="type">
+          <view class="check-box">
+            <view class="cb-box"><cb-box ischecked="{{ele.typeChecked}}" pid="{{item.id}}" whichtype="{{ele.whichType}}" btntype="typeChecked" bind:updateCart="updateData"/></view>
+          </view>
+          <view class="type-right">
+            <view class="type-title">{{ele.whichType}}</view>
+            <view class="type-price">￥{{ele.price}}</view>
+            <view class="num">
+              <view class="num-less" bindtap="lessGoodsNum" data-pid="{{item.id}}" data-whichtype="{{ele.whichType}}">-</view>
+              <input
+                value="{{ele.count}}"
+                bindinput="inputGoodsNum"
+                data-pid="{{item.id}}"
+                data-whichtype="{{ele.whichType}}"
+              />
+              <view class="num-add" bindtap="addGoodsNum" data-pid="{{item.id}}" data-whichtype="{{ele.whichType}}">+</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>
+<view class="checkout">
+  <view class="cb-box" bindtap="getMyCheck"><cb-box ischecked="{{shoppingCartAllChecked}}" btntype="allchecked" bind:updateCart="updateData" id="myCheck"/></view>
+  <view class="checkout-del" bindtap="delCheckedGoods">删除</view>
+  <view class="checkout-clear" bindtap="clearAllGoods">清空</view>
+  <view class="checkout-checkout" bindtap="checkoutGoods">结算(数量: {{allCount}}, 总价: ￥{{allValue}})</view>
+</view>

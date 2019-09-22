@@ -1,121 +1,59 @@
-// pages/search/search.js
-//引入封装好的ajax方法
-import { getHotSearch} from './../../utils/ajax.js'
+// pages/sousuo/sousuo.js
+import {
+  getHotWord,
+  getGoodsType,
+  getSearchGoodsList
+} from './../../utils/server';
 
-import { getSearchGoodsList } from './../../utils/ajax.js'
+import handleGoodsList from './../../utils/handleGoodsList'
 
 Page({
-
-  printSearch(){
-    getHotSearch()        //调用封装好的ajax方法，是基于promise的
-    .then(resp=>{
-      console.log(resp)
-    })
-  },
-
-  //搜索框输入事件，改变inputValue
-  inp(e){
-
-    this.setData({
-      inputValue: e.detail.value
-    })
-  },
-
-  //获取最近搜索
-  getRecentSearch(){
-    wx.getStorage({
-      key: 'recentSearch',
-      success: (res)=> { 
-
-        this.setData({
-          recentSearch: res.data
-        })
-      },
-      fail: (res)=> {
-        console.log(res)
-        console.log(this.data.recentSearch)
-      },
-
-      complete: (res)=> {},
-    })
-  },
-
-  //点击热门搜索词，改变input值
-  clickHotWord(e){
-    this.setData({
-      inputValue: e.target.dataset.hotword
-    })
-  },
-
-
-  //点击搜索，跳转到搜索页，并存储最近搜索到localstorage
-  toSearchList(){
-    this.setData({
-      isHotSearchShow:false       //隐藏热门搜索，显示搜索出来的商品列表
-    })
-
-    let arr = this.data.recentSearch.slice(0)   //拷贝recentSearch
-    //去重后再存进recentSearch
-    if (arr.indexOf(this.data.inputValue)===-1){
-      arr.push(this.data.inputValue)
-    }
-
-
-    this.setData({
-      recentSearch:arr
-    })
-
-    wx.setStorage({
-      key: 'recentSearch',
-      data: this.data.recentSearch,
-      success: (res)=> {
-        console.log(res)
-      },
-      fail: (res)=> {
-        console.log(res)
-      },
-      complete: (res)=> {},
-    })
-
-    getSearchGoodsList(this.data.inputValue)
-    .then(resp=>{
-      this.setData({
-        perpage: resp.data.data.perpage,
-        nextIndex: resp.data.data.nextIndex,
-        isEnd: resp.data.data.isEnd,
-        goodsList: resp.data.data.list
-      })
-    })
-  },
 
   /**
    * 页面的初始数据
    */
   data: {
-    hotWords:[],
-    recentSearch:[],
-    inputValue:'',
-    isHotSearchShow:true,
-    perpage:0,
-    nextIndex:0,
-    isEnd:false,
-    goodsList:[]
+    hotWords: [],
+    goodsTypes: [],
+    whichInput: '',
+    historySearch: [],
+    goodsList: [],
+    nextIndex: 0,
+    perpage: 0,
+    total: 0,
+    isEnd: false,
+    nowSearch: '',
+    sort: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //获取热门搜索
-    getHotSearch()
-    .then(resp=>{
+    // 做ajax请求获取热搜词汇
+    getHotWord()
+    .then((res) => {
+      const hotWords = res.data.data.hotWords;
       this.setData({
-        hotWords: resp.data.data.hotWords
+        hotWords
+      });
+    })
+    // 做ajax请求获取商品分类
+    getGoodsType()
+    .then((res) => {
+      const goodsTypes = res.data.data.list;
+      goodsTypes.shift();
+      this.setData({
+        goodsTypes
       })
     })
-    //获取最近搜索
-    this.getRecentSearch()
-
+    // 从localstorage里获取历史搜索
+    let historySearch = wx.getStorageSync('historySearch');
+    if (historySearch && historySearch.length > 0) {
+      this.setData({
+        historySearch
+      });
+    }
   },
 
   /**
@@ -150,14 +88,35 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    // 重新请求商品列表
+    if (this.data.isGoodListShow) {
+      let data = {
+        word: this.data.whichInput, // 搜索词
+        start: 0, // 分页，即从哪个数目开始20、40、60...
+        sort: this.data.sort,  // 0默认，1价格最小排列，2销量最高排列
+        minPrice: 0, // 最小价格
+        maxPrice: 99999 // 最高价格
+      }
+      this.requestGoodsList(data)
+    } else {
+      wx.stopPullDownRefresh();
+    }
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    if (this.data.isGoodListShow) {
+      let data = {
+        word: this.data.whichInput, // 搜索词
+        start: this.data.nextIndex, // 分页，即从哪个数目开始20、40、60...
+        sort: this.data.sort,  // 0默认，1价格最小排列，2销量最高排列
+        minPrice: 0, // 最小价格
+        maxPrice: 99999 // 最高价格
+      }
+      this.requestGoodsList(data, true)
+    }
   },
 
   /**
@@ -165,5 +124,113 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  changeInput(e) {
+    this.setData({
+      whichInput: e.detail.value
+    })
+
+  },
+  // 点击热门搜索
+  clickHotWord(e) {
+    let val = e.target.dataset.val
+    this.storageHistory(val);
+  },
+
+  // 展示搜索结果商品列表
+  getSearchGoodsList(e) {
+    let whichInput = e.target.dataset.whichsearch;
+    this.setData({
+      whichInput
+    })
+    console.log(whichInput);
+    this.storageHistory(whichInput);
+    // 请求搜索结果商品列表
+    let data = {
+      word: whichInput, // 搜索词
+      start: 0, // 分页，即从哪个数目开始20、40、60...
+      sort: this.data.sort,  // 0默认，1价格最小排列，2销量最高排列
+      minPrice: 0, // 最小价格
+      maxPrice: 99999 // 最高价格
+    }
+    this.requestGoodsList(data)
+
+  },
+
+  // 请求商品列表
+  requestGoodsList(data, isScrollUpdate) {
+    getSearchGoodsList(data)
+    .then((res) => {
+      // 停止下拉刷新
+      wx.stopPullDownRefresh();
+      let goodsList = res.data.data.list;
+      let goodsArr = handleGoodsList(goodsList);
+      console.log(res.data.data.list)
+      this.setData({
+        goodsList: isScrollUpdate ? goodsArr.concat(this.data.goodsList) : goodsArr,
+        nextIndex: res.data.data.nextIndex,
+        perpage: res.data.data.perpage,
+        isEnd: res.data.data.isEnd,
+        isGoodListShow: true
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+      // 停止下拉刷新
+      wx.stopPullDownRefresh();
+    })
+  },
+  // 存储历史搜索
+  storageHistory(pid) {
+    // 先从locastorage里取
+    let historySearch = wx.getStorageSync('historySearch');
+    if (!historySearch) {
+      wx.setStorageSync('historySearch', [pid]);
+      console.log(wx.getStorageSync('historySearch'));
+    } else {
+      let arr = historySearch;
+      // 先判断数组是否有这个值，没有才push
+      if (arr.indexOf(pid) === -1 && pid) {
+        arr.push(pid);
+        wx.setStorageSync('historySearch', arr);
+        console.log(wx.getStorageSync('historySearch'));
+      } else {
+        console.log('已有重复值');
+      }
+    }
+  },
+
+  // 修改sort
+  changeTab(e) {
+    // console.log(e.detail)
+    this.setData({
+      sort: e.detail
+    })
+    // 请求商品列表
+    let data = {
+      word: this.data.whichInput, // 搜索词
+      start: 0, // 分页，即从哪个数目开始20、40、60...
+      sort: this.data.sort,  // 0默认，1价格最小排列，2销量最高排列
+      minPrice: 0, // 最小价格
+      maxPrice: 99999 // 最高价格
+    }
+    this.requestGoodsList(data)
+  },
+
+  // 返回按钮的点击事件
+  backButton() {
+    console.log(1)
+    if (this.data.isGoodListShow) {
+      console.log(2)
+      this.setData({
+        isGoodListShow: false
+      })
+    } else {
+      console.log(3)
+      wx.switchTab({
+        url: '/pages/home/home',
+      })
+    }
   }
 })
