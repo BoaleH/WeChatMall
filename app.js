@@ -358,14 +358,30 @@ App({
   goodsCount() {
     let allValue = 0;
     let allCount = 0;
+    let bigNum = 0;
+    let littleNum = 0;
     this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
       ele.list.length > 0 && ele.list.forEach((item) => {
         if (item.typeChecked) {
-          allValue += item.price * item.count;
+          let bNum = item.price.toString();
+          let arr = [];
+          if (bNum.indexOf('.') > 0) {
+            arr = bNum.split('.');
+            bigNum += arr[0] * item.count * 10000;
+            littleNum += arr[1] * item.count * 1000;
+          } else {
+            bigNum += item.price * item.count * 10000
+          }
+
+
+          // allValue += item.price * item.count;
           allCount += item.count;
         }
       })
     })
+ 
+    allValue = (bigNum + littleNum)/10000
+
     this.state.allValue = allValue;
     this.state.allCount = allCount;
   },
