@@ -43,3 +43,4 @@
   isSortBarShow="{{true}}"
   bind:changeSort="changeTab"
 />
+<view class="loadmore">{{loadmorePrompt}}</view>

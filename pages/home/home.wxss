@@ -250,3 +250,71 @@ swiper {
   line-height: 34rpx;
   color: #877a73;
 }
+
+.swiper-box {
+  width: 100%;
+  height: 280rpx;
+}
+
+.swiper-box swiper {
+  width: 100% !important;
+  height: 280rpx;
+}
+
+.swiper-box swiper-item {
+  width: 100%;
+  height: 280rpx;
+}
+
+.swiper-box image {
+  width: 100%;
+  height: 280rpx;
+}
+
+.split-line {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.split-line .line {
+  height: 1px;
+  background-color: #fdde4a;
+  width: 12%;
+  display: inline-block;
+}
+
+.split-line .text {
+  font-size: 24rpx;
+  color: #bbb;
+}
+
+.split-line .text:before,
+.split-line .text:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 6rpx solid #fdde4a;
+  transform: rotate(45deg);
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.split-line .text:before {
+  margin-right: 12rpx;
+}
+
+.split-line .text:after {
+  margin-left: 12rpx;
+}
+
+.loadmore {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+}

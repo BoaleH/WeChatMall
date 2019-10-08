@@ -23,7 +23,8 @@ Page({
     total: 0,
     isEnd: false,
     nowSearch: '',
-    sort: 0
+    sort: 0,
+    loadmorePrompt: '加载中...'
   },
 
   /**
@@ -115,7 +116,13 @@ Page({
         minPrice: 0, // 最小价格
         maxPrice: 99999 // 最高价格
       }
-      this.requestGoodsList(data, true)
+      if (!this.data.isEnd) {
+        this.requestGoodsList(data, true);
+      } else {
+        this.setData({
+          loadmorePrompt: '已经加载所有商品'
+        })
+      }
     }
   },
 

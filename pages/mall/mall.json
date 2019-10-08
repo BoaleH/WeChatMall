@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "good-List": "/components/goodsList/goodsList"
-  },
-  "navigationBarTitleText": "商城"
-}

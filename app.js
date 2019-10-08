@@ -34,6 +34,7 @@ App({
     })
     // this.initCar()
   },
+
   globalData: {
     openid: '',
     userInfo: null,
@@ -111,7 +112,6 @@ App({
     })
   },
 
-  cart:wx.getStorageSync('car')||[],
   //加入购物车
   addShoppingCar(id, title, price, img, count, whichType) {
     // 如果没有购物车数据
@@ -174,6 +174,7 @@ App({
         icon: ''
       })
     }
+    this.setBadge();
   },
 
   // shoppingCart所有的goodsChecked和typeChecked都不选（用于重新进入cart页的初始化）
@@ -298,6 +299,7 @@ App({
       }
     })
     wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+    this.setBadge();
   },
 
   // 增加购物车商品数量
@@ -314,6 +316,7 @@ App({
       return ele;
     })
     wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+    this.setBadge();
   },
 
   // 减少购物车商品数量
@@ -328,6 +331,7 @@ App({
       }
     })
     wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+    this.setBadge();
   },
 
   // 输入商品数量
@@ -345,6 +349,7 @@ App({
       }
     })
     wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+    this.setBadge();
   },
 
   // 清空所有购物车
@@ -352,6 +357,7 @@ App({
     this.state.shoppingCart = [];
     this.shoppingCartAllChecked = false;
     wx.setStorageSync('shoppingCar', this.state.shoppingCart);
+    this.setBadge();
   },
 
   // 计算选中商品数量和总价格
@@ -386,62 +392,23 @@ App({
     this.state.allCount = allCount;
   },
 
-  addCart(id,title,price,img){
-    if(this.cart.length===0){
-      this.cart.push({
-        id,
-        title,
-        price,
-        img,
-        count:1
-      })
-    }else{
-      let judge=0;
-      this.cart.forEach((ele)=>{
-        if(ele.id===id){
-          ele.count++;
-          judge=1
-        }
-      })
-      if(judge==0){
-        this.cart.push({
-          id,
-          title,
-          price,
-          img,
-          count: 1
-        })
-      }
-      
-    }
-    console.log(this.cart)
-    wx.setStorageSync('car', this.cart)
-    wx.setStorage({
-      key: 'car',
-      data: this.cart,
-      success: (res) => {
-        console.log(res)
-      },
-      fail: (res) => {
-        console.log(res)
-      },
-    })
-    this.setBadge()
-  },
   //设置购物车图标的badge
   setBadge(){
+    let count = 0;
+    this.state.shoppingCart.length > 0 && this.state.shoppingCart.forEach((ele) => {
+      ele.list.length > 0 && ele.list.forEach((item) => {
+        count += item.count
+      })
+    })
     wx.setTabBarBadge({
-      index: 2,
-      text: this.cart.reduce((result,item)=>{
-        result+=item.count
-        return result
-      },0).toString(),
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+      index: 1,
+      text: count.toString(),
+      success: (res) => {},
+      fail: (res) => {},
+      complete: (res) => {},
     })
   },
-
+  
   addTe() {
     this.state.te ++
     console.log(this.state.te, '增加')

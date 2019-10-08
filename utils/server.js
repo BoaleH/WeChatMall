@@ -11,6 +11,11 @@ export const getHomeNavType = (data) => {
   return ajax.get('/api/tabs?sa=')
 }
 
+// 获取首页展示数据
+export const getHomeShowData = (data) => {
+  return ajax.get('/api/tab/1?start=0')
+}
+
 // 获取热搜
 export const getHotWord = (data) => {
   return ajax.get('/api/search/home');
@@ -34,4 +39,9 @@ export const getGoodsListByNav = (id) => {
 // 获取商品详情
 export const getGoodDetail = (id) => {
   return ajax.get(`/api/detail?id=${id}&normal=1&sa=`)
+}
+
+// 加载更多商品
+export const getMoreGoodsList = (sortType, nextIndex) => {
+  return ajax.get(`/api/tab/${sortType}/feeds?start=${nextIndex}&sort=0`)
 }

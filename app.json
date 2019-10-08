@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/home/home",
-    "pages/mall/mall",
     "pages/cart/cart",
     "pages/mine/mine",
     "pages/detail/detail",
@@ -25,15 +24,9 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "商城",
+        "text": "首页",
         "iconPath": "icon/home1.png",
         "selectedIconPath": "icon/home2.png"
-      },
-      {
-        "pagePath": "pages/mall/mall",
-        "text": "商城",
-        "iconPath": "icon/shop1.png",
-        "selectedIconPath": "icon/shop2.png"
       },
       {
         "pagePath": "pages/cart/cart",

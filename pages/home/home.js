@@ -2,10 +2,14 @@
 import { 
   getHomeNavType,
   getGoodsListByNav,
-  getAddressCity
+  getAddressCity,
+  getHomeShowData,
+  getMoreGoodsList
 
 } from '../../utils/server';
 import handleGoodsList from '../../utils/handleGoodsList'
+
+const app=getApp();
 
 Page({
 
@@ -19,7 +23,12 @@ Page({
     isTypeNavShow: false,
     typeNavList: [],
     goodsList: [],
-    nowCity: '定位中...'
+    nowCity: '定位中...',
+    banners: [],
+    sortType: 1,  // 当前商品列表类别
+    nextIndex: 20, // 分页
+    loadmorePrompt: '加载中...',
+    isEnd: false  // 分页是否到尽头
   },
 
   /**
@@ -30,6 +39,10 @@ Page({
     this.getHomeNavType();
     // 获取当前城市
     this.getCity();
+    // 每一个tabbar页面初始化都要调用setBadge才会显示tabbar的badge
+    app.setBadge();
+    // 获取首页数据展示
+    this.getHomeShowData();
   },
 
   /**
@@ -64,14 +77,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log('下拉刷新')
+    this.reLoad()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log('sdadd')
+    console.log('上拉加载更多')
+    // 加载更多
+    this.getMoreGoodsList()
   },
 
   /**
@@ -114,6 +130,66 @@ Page({
     })
   },
 
+  // 获取首页展示数据
+  getHomeShowData() {
+    getHomeShowData()
+    .then((res) => {
+      let data = res.data.data;
+      let goodsList = handleGoodsList(data.items.list);
+      this.setData({
+        banners: data.banners,
+        goodsList,
+        sortType: 1,
+        nextIndex: data.items.nextIndex,
+        isEnd: data.items.isEnd
+      })
+      console.log(res.data.data)
+    })
+  },
+
+  // 加载更多商品
+  getMoreGoodsList() {
+    console.log(this)
+    let sortType = this.data.sortType;
+    let nextIndex = this.data.nextIndex;
+    console.log(sortType, nextIndex)
+    if (!this.data.isEnd) {
+      getMoreGoodsList(sortType, nextIndex)
+      .then((res) => {
+        console.log(res)
+        console.log(res.data.data)
+        let arr = handleGoodsList(res.data.data.list)
+        let goodsList = this.data.goodsList.concat(arr)
+        this.setData({
+          nextIndex: res.data.data.nextIndex,
+          isEnd: res.data.data.isEnd,
+          goodsList
+        })
+      })
+    } else {
+      this.setData({
+        loadmorePrompt: '已经加载所有商品'
+      })
+    }
+  },
+
+  // 下拉刷新
+  reLoad() {
+    let id = this.data.sortType;
+    getGoodsListByNav(id)
+    .then((res) => {
+      // 停止下拉刷新
+      wx.stopPullDownRefresh();
+      let items = res.data.data.items;
+      let goodsList = handleGoodsList(items.list);
+      this.setData({
+        goodsList,
+        isEnd: items.isEnd,
+        nextIndex: items.nextIndex
+      })
+    })
+  },
+
   // 去搜索页
   toSearch() {
     wx.navigateTo({
@@ -141,7 +217,10 @@ Page({
         goodsList: handleGoodsList(res.data.data.items.list),
         typeNavList: res.data.data.categories,
         isTypeNavShow: true,
-        isNavImgShow: false
+        isNavImgShow: false,
+        sortType: id,
+        nextIndex: 20,
+        isEnd: res.data.data.items.isEnd
       })
     })
   },

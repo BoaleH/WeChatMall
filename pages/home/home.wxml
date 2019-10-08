@@ -9,7 +9,7 @@
   </view>
 </view>
 <view class="home-nav">
-  <view class="nav-today">今日推荐</view>
+  <view class="nav-today" bindtap="getHomeShowData">今日推荐</view>
   <view class="nav-line"></view>
   <!-- 这是用scroll-view实现的横向滚动菜单 -->
   <scroll-view
@@ -70,8 +70,26 @@
     <text class="type-nav-border-line"></text>
   </view>
 </view>
+<view class="swiper-box">
+  <swiper
+    indicator-dots="{{true}}"
+    autoplay="{{true}}"
+    interval="{{2500}}"
+  >
+    <block wx:for="{{banners}}" wx:key="{{item.imageUrl}}">
+      <swiper-item>
+        <image src="{{item.imageUrl}}"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="split-line">
+  <text class="line"></text>
+  <text class="text">   小编精选，全场特惠 (ง •̀_•́)ง   </text>
+  <text class="line"></text>
+</view>
 <commodity-List
-  wx:if="{{isTypeNavShow}}"
   goodsList="{{goodsList}}"
   isSortBarShow="{{false}}"
 />
+<view class="loadmore">{{loadmorePrompt}}</view>

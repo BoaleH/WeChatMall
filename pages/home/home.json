@@ -3,5 +3,6 @@
     "commodity-List": "./../../components/commodityList/commodityList"
   },
   "navigationBarTitleText": "首页",
-  "onReachBottomDistance": 0
+  "onReachBottomDistance": 0,
+  "enablePullDownRefresh": true
 }

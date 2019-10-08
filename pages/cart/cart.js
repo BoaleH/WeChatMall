@@ -19,6 +19,8 @@ Page({
    */
   onLoad: function (options) {
     this.updateData();
+    // 每一个tabbar页面初始化都要调用setBadge才会显示tabbar的badge
+    app.setBadge();
   },
 
   /**
