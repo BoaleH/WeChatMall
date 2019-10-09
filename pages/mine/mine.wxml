@@ -1,1 +1,10 @@
-<button catchtap="toAbout">关于我们</button>
+<view class="header">
+  <text class="iconfont icon-yixianshi-"></text>
+  <text class="iconfont icon-yixianshi-2"></text>
+  <text class="iconfont icon-yixianshi-1"></text>
+</view>
+<view class="userinfo">
+  <image src="{{avatarUrl}}"></image>
+  <text>{{nickName}}</text>
+</view>
+<view class=""></view>

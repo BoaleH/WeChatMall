@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7817439",
+      "name": "收听",
+      "font_class": "yixianshi-",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "7817446",
+      "name": "设置",
+      "font_class": "yixianshi-1",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "7817454",
+      "name": "信息",
+      "font_class": "yixianshi-2",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    }
+  ]
+}

@@ -3,19 +3,12 @@
 const app=getApp();
 
 Page({
-
-  toAbout(){
-    wx.navigateTo({
-      url: '/pages/about/about',
-
-    })
-  },
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    nickName: '',
+    avatarUrl: ''
   },
 
   /**
@@ -24,6 +17,7 @@ Page({
   onLoad: function (options) {
     // 每一个tabbar页面初始化都要调用setBadge才会显示tabbar的badge
     app.setBadge();
+    this.getUserInfo();
   },
 
   /**
@@ -37,7 +31,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    getApp().setBadge()
+    app.setBadge()
   },
 
   /**
@@ -73,5 +67,21 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 获取用户信息
+  getUserInfo() {
+    wx.getUserInfo({
+      success: (res) => {
+        let userInfo = res.userInfo
+        let nickName = userInfo.nickName
+        let avatarUrl = userInfo.avatarUrl
+        console.log(nickName, avatarUrl)
+        this.setData({
+          nickName,
+          avatarUrl
+        })
+      }
+    })
   }
 })
